@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "691911693917",
+    "project_id": "boncengabsensi",
+    "storage_bucket": "boncengabsensi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691911693917:android:38243b81fc00c98337dfb4",
+        "android_client_info": {
+          "package_name": "com.example.absen_online"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691911693917-hmvdho00thb6quiaaqe5u68p5hmetj7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3WjCVZnWfdSmbPaqah6sM9V2ffSIHp8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691911693917-hmvdho00thb6quiaaqe5u68p5hmetj7e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
