@@ -6,7 +6,7 @@ import 'package:absen_online/ui/screen/home_navigation.dart';
 import 'package:absen_online/ui/support/flushbar/flushbar_notification.dart';
 import 'package:absen_online/ui/widget/button/custom_button_primary.dart';
 import 'package:absen_online/ui/widget/button/custom_text_form.dart';
-import 'package:flushbar/flushbar.dart';
+// import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,24 +21,24 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isButtonEnable = false,isButtonLoading = false,showPassword  = true;
 
-  void _handleLogin(BuildContext context) async{
-    String token_fcm ="";
-
-    /// Get token firebase
-    try{
-      await firebaseMessaging.getToken().then((String token) {
-        token_fcm = token;
-      });
-    }catch(e){
-      token_fcm = "";
-    }
-
-    print("fcm token nya => "+token_fcm);
-    context.read<LoginCubit>().login(_TeUsername.text, _TePassword.text,token_fcm);
-  }
+  // void _handleLogin(BuildContext context) async{
+  //   String token_fcm ="";
+  //
+  //   /// Get token firebase
+  //   try{
+  //     await firebaseMessaging.getToken().then((String? token) {
+  //       token_fcm = (token ?? "");
+  //     });
+  //   }catch(e){
+  //     token_fcm = "";
+  //   }
+  //
+  //   print("fcm token nya => "+token_fcm);
+  //   context.read<LoginCubit>().login(_TeUsername.text, _TePassword.text,token_fcm);
+  // }
 
   void validateAndSave() {
-    final FormState form = _formKey.currentState;
+    final FormState form = _formKey.currentState!;
     if (form.validate()) {
       print('Form is valid');
     } else {
@@ -58,17 +58,17 @@ class _LoginPageState extends State<LoginPage> {
     }
     if (state is LoginFailed) {
       print('Login Failed');
-      FlushbarNotification.flushbarTop(
-          context,
-          FlushbarPosition.BOTTOM,
-          state.msg,
-          Colors.white,
-          color_failed,
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          false);
+      // FlushbarNotification.flushbarTop(
+      //     context,
+      //     FlushbarPosition.BOTTOM,
+      //     state.msg,
+      //     Colors.white,
+      //     color_failed,
+      //     Icon(
+      //       Icons.check_circle,
+      //       color: Colors.white,
+      //     ),
+      //     false);
       // FlushbarNotif.failedBottom(context, "Username atau password salah");
 
     }
@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     if (state is LoginError) {
       print('state error');
-      print('state error => '+state.msg);
+      print('state error => '+(state.msg ?? ""));
     }
   }
 
@@ -170,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                             isButtonLoading = true;
                           });
                           // validateAndSave();
-                          _handleLogin(context);
+                          // _handleLogin(context);
                         }
                       },
                       borderRadius: 50,

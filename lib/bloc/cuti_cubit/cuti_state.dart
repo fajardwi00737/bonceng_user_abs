@@ -10,7 +10,7 @@ abstract class CutiState extends Equatable {
 class CutiInitial extends CutiState {}
 
 class CutiSucces extends CutiState{
-  final String msg;
+  final String? msg;
   CutiSucces(this.msg);
 // LoginSucces(this.userInfo);
 //
@@ -25,13 +25,13 @@ class CutiLoading extends CutiState {
 }
 
 class CutiFailed extends CutiState {
-  final String msg;
+  final String? msg;
 
   CutiFailed(this.msg);
 }
 
 class CutiError extends CutiState {
-  final String msg;
+  final String? msg;
 
   CutiError({this.msg});
 }

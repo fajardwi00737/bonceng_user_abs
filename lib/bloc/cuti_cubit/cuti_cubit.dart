@@ -21,11 +21,12 @@ class CutiCubit extends Cubit<CutiState>{
       };
 
       http.Response response = await http.post(
-        'https://api.simerahputih.com/absen/user/cuti',
+        // 'https://api.simerahputih.com/absen/user/cuti',
+        Uri.parse('http://185.201.9.1:3101/absen/user/cuti'),
         body: formMap,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "x-api-key" : GeneralSharedPreferences.readString("token_login")
+          "x-api-key" : GeneralSharedPreferences.readString("token_login")!
         },
         encoding: convert.Encoding.getByName("utf-8"),
       );

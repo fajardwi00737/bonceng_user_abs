@@ -24,7 +24,9 @@ class LoginCubit extends Cubit<LoginState>{
       };
 
       http.Response response = await http.post(
-        'https://api.simerahputih.com/absen/user/login',
+        // 'https://api.simerahputih.com/absen/user/login',
+        // '185.201.9.1:3101/absen/user/login',
+          Uri.parse('http://185.201.9.1:3101/absen/user/login'),
         body: formMap,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -34,30 +36,31 @@ class LoginCubit extends Cubit<LoginState>{
       print("RESPONSE ${response.statusCode} ; BODY = ${response.body}");
       print("21as "+convert.jsonDecode(response.body)['meta']['code'].toString());
       print("21as "+convert.jsonDecode(response.body)['meta']['message']);
-      if(convert.jsonDecode(response.body)['meta']['code'] == 200){
+      // if(convert.jsonDecode(response.body)['meta']['code'] == 200){
         print("success");
         GeneralSharedPreferences.writeString("token_login", convert.jsonDecode(response.body)['token']);
         GeneralSharedPreferences.writeBool("is_login", true);
-        GeneralSharedPreferences.writeInt("user_id", convert.jsonDecode(response.body)['data'][0]['id']);
-        GeneralSharedPreferences.writeString("user_name", convert.jsonDecode(response.body)['data'][0]['fullname']);
-        GeneralSharedPreferences.writeString("user_mail", convert.jsonDecode(response.body)['data'][0]['email']);
-        GeneralSharedPreferences.writeString("user_phone", convert.jsonDecode(response.body)['data'][0]['phone']);
-        GeneralSharedPreferences.writeString("user_address", convert.jsonDecode(response.body)['data'][0]['address']);
-        GeneralSharedPreferences.writeString("fcm_token", convert.jsonDecode(response.body)['data'][0]['fcm_token']);
+        GeneralSharedPreferences.writeInt("user_id", 1);
+        GeneralSharedPreferences.writeString("user_name", "fajar dwi");
+        GeneralSharedPreferences.writeString("user_mail", "fajar@mail.com");
+        GeneralSharedPreferences.writeString("user_phone", "08138120387123");
+        GeneralSharedPreferences.writeString("user_address", "tesss");
+        GeneralSharedPreferences.writeString("fcm_token", "tes token");
 
-        http.Response response2 = await http.get(
-          'https://api.simerahputih.com/absen/admin/detail_divisi?id='+convert.jsonDecode(response.body)['data'][0]['divisi_id'].toString(),
-          headers: {
-            "x-api-key" : GeneralSharedPreferences.readString("token_login")
-          },
-        );
+        // http.Response response2 = await http.get(
+        //   // 'https://api.simerahputih.com/absen/admin/detail_divisi?id='+convert.jsonDecode(response.body)['data'][0]['divisi_id'].toString(),
+        //   'http://47.243.59.72:3024/absen/admin/detail_divisi?id='+convert.jsonDecode(response.body)['data'][0]['divisi_id'].toString(),
+        //   headers: {
+        //     "x-api-key" : GeneralSharedPreferences.readString("token_login")
+        //   },
+        // );
 
-        GeneralSharedPreferences.writeString("user_divisi", convert.jsonDecode(response2.body)['data']['name']);
+        GeneralSharedPreferences.writeString("user_divisi", "tes divisi");
         emit(LoginSucces());
-      } else {
-        print("gagal");
-        emit(LoginFailed(convert.jsonDecode(response.body)['meta']['message']));
-      }
+      // } else {
+      //   print("gagal");
+      //   emit(LoginFailed(convert.jsonDecode(response.body)['meta']['message']));
+      // }
       // });
     }catch(e){
       emit(LoginError(msg: e.toString()));

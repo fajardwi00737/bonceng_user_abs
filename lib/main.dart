@@ -3,12 +3,12 @@ import 'package:absen_online/ui/screen/splashscreen.dart';
 import 'package:absen_online/ui/widget/button/custom_button_confirm.dart';
 import 'package:absen_online/utils/bloc_list/bloc_list.dart';
 import 'package:absen_online/utils/general_shared_preferences/general_shared_preferences.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
-Logger logger;
-final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+Logger? logger;
+// final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await setUpApp();
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return ScrollConfiguration(
             behavior: RemoveScrollGlowBehavior(),
-            child: child,
+            child: child!,
           );
         },
         home: Splashscreen(),
@@ -64,7 +64,7 @@ class RemoveScrollGlowBehavior extends ScrollBehavior {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
   // This ui.widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -75,7 +75,7 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(widget.title!),
       ),
       body: Center(
         // Center is a layout ui.widget. It takes a single child and positions it

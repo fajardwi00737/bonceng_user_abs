@@ -12,9 +12,10 @@ class PresenceListCubit extends Cubit<PresenceListState>{
     try{
       emit(PresenceListLoading());
       http.Response response = await http.get(
-          'https://api.simerahputih.com/absen/user/presence_list',
+          // 'https://api.simerahputih.com/absen/user/presence_list',
+          Uri.parse('http://185.201.9.1:3101/absen/user/presence_list'),
         headers: {
-          "x-api-key" : GeneralSharedPreferences.readString("token_login")
+          "x-api-key" : GeneralSharedPreferences.readString("token_login")!
         },
       );
 

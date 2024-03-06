@@ -13,18 +13,21 @@ class DashboardSumaryCubit extends Cubit<DashboardSumaryState>{
     try{
       emit(DashboardSumaryLoading());
       http.Response response = await http.get(
-        'https://api.simerahputih.com/absen/user/summary',
+        // 'https://api.simerahputih.com/absen/user/summary',
+          Uri.parse('http://185.201.9.1:3101/absen/user/summary'),
         headers: {
-          "x-api-key" : GeneralSharedPreferences.readString("token_login")
+          "x-api-key" : GeneralSharedPreferences.readString("token_login")!
         },
       );
       // print("success get data => "+convert.jsonDecode(response.body)['data']['count_cuti']);
 
       if(convert.jsonDecode(response.body)['meta']['code'] == 200){
         print("success get data asd");
+        print(convert.jsonDecode(response.body));
+
         emit(DashboardSumarySuccess(convert.jsonDecode(response.body)['data']));
       } else {
-        print("failed get data");
+        print("failed get data dashboard");
         emit(DashboardSumaryFailed());
       }
     } catch (e){

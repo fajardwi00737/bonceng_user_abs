@@ -25,7 +25,7 @@ class DashboardSumaryFailed extends DashboardSumaryState {
 }
 
 class DashboardSumaryError extends DashboardSumaryState {
-  final String msg;
+  final String? msg;
 
   DashboardSumaryError({this.msg});
 }

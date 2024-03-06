@@ -6,7 +6,7 @@ import 'package:absen_online/ui/support/flushbar/flushbar_notification.dart';
 import 'package:absen_online/ui/widget/button/custom_button_confirm.dart';
 import 'package:absen_online/ui/widget/button/custom_date_picker_form.dart';
 import 'package:absen_online/utils/general_shared_preferences/general_shared_preferences.dart';
-import 'package:flushbar/flushbar.dart';
+// import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,14 +22,14 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
   TextEditingController toDateController = TextEditingController();
   TextEditingController tf_price_food = TextEditingController();
 
-  DateTime _dateTime;
+  DateTime? _dateTime;
   bool checkboxSakit = false;
   bool checkboxCutiTahunan = false;
   bool checkboxKeperluanKeluarga = false;
   bool checkboxSeminar = false;
   bool checkboxLainnya= false;
   String confirmSelectedFromDate ="",confirmSelectedToDate = "", confirmReason = "";
-  int initYears,initMonth,initDay,selectedFromYears,selectedFromMonth,selectedFromdDay,selectedToYears,selectedToMonth,selectedToDay;
+  int? initYears,initMonth,initDay,selectedFromYears,selectedFromMonth,selectedFromdDay,selectedToYears,selectedToMonth,selectedToDay;
 
   String _formatDate(DateTime dateTime) {
     return DateFormat('dd-MM-yyyy').format(dateTime);
@@ -54,34 +54,34 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
     }
     if (state is CutiFailed) {
       print('absen Failed');
-      FlushbarNotification.flushbarTop(
-          context,
-          FlushbarPosition.BOTTOM,
-          state.msg,
-          Colors.white,
-          color_failed,
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          false);
+      // FlushbarNotification.flushbarTop(
+      //     context,
+      //     FlushbarPosition.BOTTOM,
+      //     state.msg,
+      //     Colors.white,
+      //     color_failed,
+      //     Icon(
+      //       Icons.check_circle,
+      //       color: Colors.white,
+      //     ),
+      //     false);
       // FlushbarNotif.failedBottom(context, "Username atau password salah");
 
     }
     if (state is CutiSucces) {
       // FlushbarNotif.successBottom(context, "Login Berhasil");
       print('absen Succezz');
-      FlushbarNotification.flushbarTop(
-          context,
-          FlushbarPosition.BOTTOM,
-          state.msg,
-          Colors.white,
-          color_success,
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          false);
+      // FlushbarNotification.flushbarTop(
+      //     context,
+      //     FlushbarPosition.BOTTOM,
+      //     state.msg,
+      //     Colors.white,
+      //     color_success,
+      //     Icon(
+      //       Icons.check_circle,
+      //       color: Colors.white,
+      //     ),
+      //     false);
       Future.delayed(Duration(seconds: 3), () {
         Navigator.pop(context);
       });
@@ -93,18 +93,18 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
     }
     if (state is CutiError) {
       print('state error');
-      print('state error => '+state.msg);
-      FlushbarNotification.flushbarTop(
-          context,
-          FlushbarPosition.BOTTOM,
-          "Request gagal! Silakan coba lagi",
-          Colors.white,
-          color_failed,
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          false);
+      print('state error => '+state.msg!);
+      // FlushbarNotification.flushbarTop(
+      //     context,
+      //     FlushbarPosition.BOTTOM,
+      //     "Request gagal! Silakan coba lagi",
+      //     Colors.white,
+      //     color_failed,
+      //     Icon(
+      //       Icons.check_circle,
+      //       color: Colors.white,
+      //     ),
+      //     false);
     }
   }
 
@@ -163,31 +163,31 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 16,),
-              Container(
-                height: 50,
-                margin: EdgeInsets.symmetric(horizontal: 16),
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.mail_outline_rounded),
-                    SizedBox(width: 10,),
-                    Expanded(child: Text(GeneralSharedPreferences.readString("user_mail"),maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 15,color: color_black,fontFamily: baseUrlFontsPoppinsSemiBold,fontWeight: FontWeight.bold),)),
-                  ],
-                ),
-              ),
+              // Container(
+              //   height: 50,
+              //   margin: EdgeInsets.symmetric(horizontal: 16),
+              //   width: MediaQuery.of(context).size.width,
+              //   padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(16),
+              //     color: Colors.white,
+              //     boxShadow: [
+              //       BoxShadow(
+              //         color: Colors.grey.withOpacity(0.5),
+              //         spreadRadius: 1,
+              //         blurRadius: 3,
+              //         offset: Offset(0, 0),
+              //       ),
+              //     ], 
+              //   ),
+              //   child: Row(
+              //     children: [
+              //       Icon(Icons.mail_outline_rounded),
+              //       SizedBox(width: 10,),
+              //       Expanded(child: Text(GeneralSharedPreferences.readString("user_mail"),maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 15,color: color_black,fontFamily: baseUrlFontsPoppinsSemiBold,fontWeight: FontWeight.bold),)),
+              //     ],
+              //   ),
+              // ),
               Container(margin: EdgeInsets.all(16),child: Text("Cuti dari tanggal",style: TextStyle(fontSize: 15,color: color_black,fontFamily: baseUrlFontsPoppinsSemiBold,fontWeight: FontWeight.bold),)),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16),
@@ -196,9 +196,9 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
                   onTap: (){
                     showDatePicker(
                       context: context,
-                      initialDate: selectedFromYears == null ? DateTime.now():DateTime(selectedFromYears,selectedFromMonth,selectedFromdDay),
-                      firstDate: DateTime(initYears,initMonth,initDay),
-                      lastDate: selectedToYears == null ? DateTime(2099):DateTime(selectedToYears == null ? initYears:selectedToYears,selectedToMonth == null ?initMonth:selectedToMonth,selectedToDay == null ? initDay:selectedToDay),
+                      initialDate: selectedFromYears == null ? DateTime.now():DateTime(selectedFromYears!,selectedFromMonth!,selectedFromdDay!),
+                      firstDate: DateTime(initYears!,initMonth!,initDay!),
+                      lastDate: selectedToYears == null ? DateTime(2099):DateTime(selectedToYears == null ? initYears!:selectedToYears!,selectedToMonth == null ?initMonth!:selectedToMonth!,selectedToDay == null ? initDay!:selectedToDay!),
 
                     ).then((date) {  //tambahkan setState dan panggil variabel _dateTime.
                       setState(() {
@@ -209,9 +209,9 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
                           _dateTime = date;
                           fromDateController.text = _formatDate(date);
                           confirmSelectedFromDate = _formatDate2(date);
-                          selectedFromYears = _dateTime.year;
-                          selectedFromMonth = _dateTime.month;
-                          selectedFromdDay = _dateTime.day;
+                          selectedFromYears = _dateTime!.year;
+                          selectedFromMonth = _dateTime!.month;
+                          selectedFromdDay = _dateTime!.day;
                         }
                       });
                     });
@@ -226,8 +226,8 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
                   onTap: (){
                     showDatePicker(
                       context: context,
-                      initialDate: selectedToYears == null ? selectedFromYears == null ?DateTime.now():DateTime(selectedFromYears == null ? initYears:selectedFromYears,selectedFromMonth == null ?initMonth:selectedFromMonth,selectedFromdDay == null ? initDay:selectedFromdDay): DateTime(selectedToYears == null ? initYears:selectedToYears,selectedToMonth == null ?initMonth:selectedToMonth,selectedToDay == null ? initDay:selectedToDay),
-                      firstDate: DateTime(selectedFromYears == null ? initYears:selectedFromYears,selectedFromMonth == null ?initMonth:selectedFromMonth,selectedFromdDay == null ? initDay:selectedFromdDay),
+                      initialDate: selectedToYears == null ? selectedFromYears == null ?DateTime.now():DateTime(selectedFromYears == null ? initYears!:selectedFromYears!,selectedFromMonth == null ?initMonth!:selectedFromMonth!,selectedFromdDay == null ? initDay!:selectedFromdDay!): DateTime(selectedToYears == null ? initYears!:selectedToYears!,selectedToMonth == null ?initMonth!:selectedToMonth!,selectedToDay == null ? initDay!:selectedToDay!),
+                      firstDate: DateTime(selectedFromYears == null ? initYears!:selectedFromYears!,selectedFromMonth == null ?initMonth!:selectedFromMonth!,selectedFromdDay == null ? initDay!:selectedFromdDay!),
                       lastDate: DateTime(2099),
 
                     ).then((date) {  //tambahkan setState dan panggil variabel _dateTime.
@@ -239,9 +239,9 @@ class _PengajuanCutiPageState extends State<PengajuanCutiPage> {
                           _dateTime = date;
                           toDateController.text = _formatDate(date);
                           confirmSelectedToDate = _formatDate2(date);
-                          selectedToYears = _dateTime.year;
-                          selectedToMonth = _dateTime.month;
-                          selectedToDay = _dateTime.day;
+                          selectedToYears = _dateTime!.year;
+                          selectedToMonth = _dateTime!.month;
+                          selectedToDay = _dateTime!.day;
                         }
                       });
                     });

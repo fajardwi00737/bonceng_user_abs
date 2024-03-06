@@ -28,7 +28,7 @@ class CutiListFailed extends CutiListState {
 }
 
 class CutiListError extends CutiListState {
-  final String msg;
+  final String? msg;
 
   CutiListError({this.msg});
 }

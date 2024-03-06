@@ -24,13 +24,13 @@ class LoginLoading extends LoginState {
 }
 
 class LoginFailed extends LoginState {
-  final String msg;
+  final String? msg;
 
   LoginFailed(this.msg);
 }
 
 class LoginError extends LoginState {
-  final String msg;
+  final String? msg;
 
   LoginError({this.msg});
 }

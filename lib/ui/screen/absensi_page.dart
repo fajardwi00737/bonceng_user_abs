@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:absen_online/bloc/absen_cubit/absen_cubit.dart';
 import 'package:absen_online/constant/assets_constant.dart';
 import 'package:absen_online/constant/color_constant.dart';
-import 'package:absen_online/ui/support/flushbar/flushbar_notification.dart';
+// import 'package:absen_online/ui/support/flushbar/flushbar_notification.dart';
 import 'package:absen_online/ui/widget/button/custom_button_confirm.dart';
 import 'package:absen_online/utils/general_shared_preferences/general_shared_preferences.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,12 +21,12 @@ class AbsensiPage extends StatefulWidget {
 }
 
 class _AbsensiPageState extends State<AbsensiPage> {
-  Position _position;
-  Future _mapFuture;
+  Position? _position;
+  Future? _mapFuture;
   Completer<GoogleMapController> mapController = Completer();
   Map<MarkerId, Marker> _markersSBM = <MarkerId, Marker>{};
-  String _timeString,_timeStringConfirm,userAddress = "",_dateString,_dateStringConfirm;
-  Timer _timer;
+  String? _timeString,_timeStringConfirm,userAddress = "",_dateString,_dateStringConfirm;
+  Timer? _timer;
   int absenType = 1;
   TextEditingController notesController = TextEditingController();
   List<DropdownMenuItem<String>> get dropdownItems{
@@ -72,25 +71,25 @@ class _AbsensiPageState extends State<AbsensiPage> {
   actionConfirmAttendance(BuildContext context)async{
     _timeStringConfirm = _formatTime(DateTime.now());
     _dateStringConfirm = _formatDate2(DateTime.now());
-    print("Lokasi => "+userAddress);
-    print("Time => "+_timeStringConfirm);
-    print("date => "+_dateStringConfirm);
+    print("Lokasi => "+userAddress!);
+    print("Time => "+_timeStringConfirm!);
+    print("date => "+_dateStringConfirm!);
     print("Type Absen => "+selectedValue);
     print("Type => "+absenType.toString());
     print("Keterangan => "+notesController.text.toString());
 
-    context.read<AbsenCubit>().actionAbsen(GeneralSharedPreferences.readInt("user_id").toString(), _dateStringConfirm, _timeStringConfirm, absenType.toString(), userAddress);
+    context.read<AbsenCubit>().actionAbsen(GeneralSharedPreferences.readInt("user_id").toString(), _dateStringConfirm!, _timeStringConfirm!, absenType.toString(), userAddress!);
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer!.cancel();
     notesController.dispose();
     super.dispose();
   }
 
   fistOpenPage()async{
-    Position res = await Geolocator().getCurrentPosition();
+    Position res = await Geolocator.getCurrentPosition();
 
     setState(() {
       _position = res;
@@ -100,7 +99,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
   Future _getCurrentLocationInit() async {
     //await _progressDialog.show();
 
-    Position res = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    Position res = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
 
     try {
       List<Geo.Placemark> placemark = await Geo.placemarkFromCoordinates(
@@ -112,7 +111,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
       // print('hahahahah == ' + placemark[0]["Street"]);
       setState(() {
         // userAddress = placemark[placemark.length > 1 ? 1 : 0].street;
-        userAddress = placemark[0].street;
+        userAddress = placemark[0].street!;
       });
     } catch (err) {
       print(err);
@@ -120,14 +119,14 @@ class _AbsensiPageState extends State<AbsensiPage> {
 
     setState(() {
       _position = res;
-      print('hahahaha ads== ' + _position.latitude.toString());
-      print('hahahaha asd== ' + _position.longitude.toString());
+      print('hahahaha ads== ' + _position!.latitude.toString());
+      print('hahahaha asd== ' + _position!.longitude.toString());
       print('hahahaha asd== ' + res.toString());
-      print('hahahaha asd== ' + userAddress);
+      print('hahahaha asd== ' + userAddress!);
     });
 
     MarkerId markerId = MarkerId("1");
-    LatLng position = LatLng(_position.latitude, _position.longitude);
+    LatLng position = LatLng(_position!.latitude, _position!.longitude);
     Marker marker = Marker(
       markerId: markerId,
       position: position,
@@ -149,7 +148,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
     mapController.complete(controller);
 
     MarkerId markerId = MarkerId("1");
-    LatLng position = LatLng(_position.latitude, _position.longitude);
+    LatLng position = LatLng(_position!.latitude, _position!.longitude);
     Marker marker = Marker(
       markerId: markerId,
       position: position,
@@ -166,34 +165,34 @@ class _AbsensiPageState extends State<AbsensiPage> {
     }
     if (state is AbsenFailed) {
       print('absen Failed');
-      FlushbarNotification.flushbarTop(
-          context,
-          FlushbarPosition.BOTTOM,
-          state.msg,
-          Colors.white,
-          color_failed,
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          false);
+      // FlushbarNotification.flushbarTop(
+      //     context,
+      //     FlushbarPosition.BOTTOM,
+      //     state.msg,
+      //     Colors.white,
+      //     color_failed,
+      //     Icon(
+      //       Icons.check_circle,
+      //       color: Colors.white,
+      //     ),
+      //     false);
       // FlushbarNotif.failedBottom(context, "Username atau password salah");
 
     }
     if (state is AbsenSucces) {
       // FlushbarNotif.successBottom(context, "Login Berhasil");
       print('absen Succezz');
-      FlushbarNotification.flushbarTop(
-          context,
-          FlushbarPosition.BOTTOM,
-          state.msg,
-          Colors.white,
-          color_success,
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          false);
+      // FlushbarNotification.flushbarTop(
+      //     context,
+      //     FlushbarPosition.BOTTOM,
+      //     state.msg,
+      //     Colors.white,
+      //     color_success,
+      //     Icon(
+      //       Icons.check_circle,
+      //       color: Colors.white,
+      //     ),
+      //     false);
       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeNavigation()));
       Future.delayed(Duration(seconds: 3), () {
         Navigator.pop(context);
@@ -201,18 +200,18 @@ class _AbsensiPageState extends State<AbsensiPage> {
     }
     if (state is AbsenError) {
       print('state error');
-      print('state error => '+state.msg);
-      FlushbarNotification.flushbarTop(
-          context,
-          FlushbarPosition.BOTTOM,
-          "Request gagal! Silakan coba lagi",
-          Colors.white,
-          color_failed,
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-          ),
-          false);
+      print('state error => '+state.msg!);
+      // FlushbarNotification.flushbarTop(
+      //     context,
+      //     FlushbarPosition.BOTTOM,
+      //     "Request gagal! Silakan coba lagi",
+      //     Colors.white,
+      //     color_failed,
+      //     Icon(
+      //       Icons.check_circle,
+      //       color: Colors.white,
+      //     ),
+      //     false);
     }
   }
 
@@ -323,7 +322,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                               color: color_secondary,
                               fontFamily: baseUrlFontsPoppinsSemiBold,
                               fontWeight: FontWeight.bold),),
-                          Text(_dateString, style: TextStyle(fontSize: 15,
+                          Text(_dateString!, style: TextStyle(fontSize: 15,
                               color: color_black,
                               fontFamily: baseUrlFontsPoppinsSemiBold,
                               fontWeight: FontWeight.bold),),
@@ -348,8 +347,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                         zoomControlsEnabled: false,
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: CameraPosition(
-                          target: LatLng(_position.latitude,
-                              _position.longitude),
+                          target: LatLng(_position!.latitude,
+                              _position!.longitude),
                           zoom: 17.6,
                         ),
                       ),
@@ -379,7 +378,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                         children: [
                           Icon(Icons.location_on),
                           SizedBox(width: 10,),
-                          Expanded(child: Text(userAddress, maxLines: 2,
+                          Expanded(child: Text(userAddress!, maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 12,
                                 color: color_black,
@@ -425,7 +424,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           value: selectedValue,
                           onChanged: (newValue) {
                             setState(() {
-                              selectedValue = newValue;
+                              selectedValue = newValue.toString();
                               if (selectedValue == "Absen Masuk") {
                                 absenType = 1;
                               } else {
@@ -435,34 +434,34 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           },
                           items: dropdownItems),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 3,
-                            offset: Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      margin: EdgeInsets.only(left: 16, right: 16),
-                      padding: EdgeInsets.all(16),
-                      child: TextField(
-                        controller: notesController,
-                        style: TextStyle(
-                            fontFamily: baseUrlFontsPoppinsRegular),
-                        maxLines: 5,
-                        maxLength: 150,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Berikan Keterangan (Opsional)"
-                        ),
-                        //onSubmitted: _getNotes(),
-                      ),
-                    ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(16),
+                    //     color: Colors.white,
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: Colors.grey.withOpacity(0.5),
+                    //         spreadRadius: 1,
+                    //         blurRadius: 3,
+                    //         offset: Offset(0, 0),
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   margin: EdgeInsets.only(left: 16, right: 16),
+                    //   padding: EdgeInsets.all(16),
+                    //   child: TextField(
+                    //     controller: notesController,
+                    //     style: TextStyle(
+                    //         fontFamily: baseUrlFontsPoppinsRegular),
+                    //     maxLines: 5,
+                    //     maxLength: 150,
+                    //     decoration: InputDecoration(
+                    //         border: InputBorder.none,
+                    //         hintText: "Berikan Keterangan (Opsional)"
+                    //     ),
+                    //     //onSubmitted: _getNotes(),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 16,
                     ),

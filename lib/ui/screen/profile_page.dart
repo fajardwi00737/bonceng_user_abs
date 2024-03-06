@@ -6,10 +6,9 @@ import 'package:absen_online/ui/widget/card/experience_card.dart';
 import 'package:absen_online/utils/general_shared_preferences/general_shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }

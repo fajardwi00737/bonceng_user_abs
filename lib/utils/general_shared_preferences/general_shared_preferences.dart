@@ -10,21 +10,21 @@ class GeneralSharedPreferences{
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static int readInt(String key){
+  static int? readInt(String key){
     return sharedPreferences.getInt(key);
   }
 
-  static String readString(String key){
+  static String? readString(String key){
     return sharedPreferences.getString(key);
   }
 
-  static bool readBool(String key){
+  static bool? readBool(String key){
     return sharedPreferences.getBool(key);
   }
 
   static readObject(String key)async{
 
-    var data = await json.decode(sharedPreferences.get(key));
+    var data = await json.decode(sharedPreferences.get(key).toString());
     return data;
   }
 

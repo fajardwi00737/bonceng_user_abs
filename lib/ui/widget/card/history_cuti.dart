@@ -3,7 +3,7 @@ import 'package:absen_online/constant/color_constant.dart';
 import 'package:flutter/material.dart';
 
 class HistoryCuti extends StatelessWidget {
-  final String fromDate,toDate,cutiReason,rejectReason,statusCuti;
+  final String? fromDate,toDate,cutiReason,rejectReason,statusCuti;
   HistoryCuti(this.fromDate,this.toDate,this.cutiReason,this.statusCuti,{this.rejectReason});
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class HistoryCuti extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8)
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 8,vertical: 5),
-                child: Text(statusCuti,style: TextStyle(color: Colors.white,fontSize:11,fontFamily: baseUrlFontsPoppinsSemiBold)),
+                child: Text(statusCuti!,style: TextStyle(color: Colors.white,fontSize:11,fontFamily: baseUrlFontsPoppinsSemiBold)),
               )
             ],
           ),
@@ -55,7 +55,7 @@ class HistoryCuti extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(child: Text("Dari tanggal",style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold))),
-                    Flexible(child: Text(fromDate,overflow: TextOverflow.ellipsis,maxLines: 1,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold)))
+                    Flexible(child: Text(fromDate!,overflow: TextOverflow.ellipsis,maxLines: 1,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold)))
                   ],
                 ),
                 SizedBox(height: 6,),
@@ -64,7 +64,7 @@ class HistoryCuti extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(child: Container(child: Text("Sampai tanggal",style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold)))),
-                    Flexible(child: Container(child: Text(toDate,overflow: TextOverflow.ellipsis,maxLines: 1,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold))))
+                    Flexible(child: Container(child: Text(toDate!,overflow: TextOverflow.ellipsis,maxLines: 1,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold))))
                   ],
                 ),
                 SizedBox(height: 6,),
@@ -82,7 +82,7 @@ class HistoryCuti extends StatelessWidget {
                           borderRadius: BorderRadiusDirectional.circular(8),
                           color: color_grey.withOpacity(0.2)
                         ),
-                        child: Text(cutiReason,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold)),
+                        child: Text(cutiReason!,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold)),
                       ),
                     )
                   ],
@@ -112,7 +112,7 @@ class HistoryCuti extends StatelessWidget {
                             borderRadius: BorderRadiusDirectional.circular(8),
                             color: color_grey.withOpacity(0.2)
                         ),
-                        child: Text(rejectReason,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold)),
+                        child: Text(rejectReason!,style: TextStyle(color: color_black,fontSize:12,fontFamily: baseUrlFontsPoppinsRegular,fontWeight: FontWeight.bold)),
                       ),
                     )
                   ],

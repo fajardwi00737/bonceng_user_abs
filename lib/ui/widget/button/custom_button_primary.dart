@@ -19,21 +19,21 @@ class CustomButtonPrimary extends StatelessWidget {
     this.hasHeight = false,this.hasWidth = false,
 
   });
-  final bool isEnable, btnLoading, isBorder,hasHeight,hasWidth;
-  final Function onTap;
-  final String title;
-  final Color color,textColor;
-  final List<BoxShadow> shadow;
-  final Widget icon, customText;
-  final double borderRadius, spaceIcon,customTextSize;
+  final bool? isEnable, btnLoading, isBorder,hasHeight,hasWidth;
+  final Function? onTap;
+  final String? title;
+  final Color? color,textColor;
+  final List<BoxShadow>? shadow;
+  final Widget? icon, customText;
+  final double? borderRadius, spaceIcon,customTextSize;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: isEnable ? onTap : null,
+      onPressed: isEnable! ? onTap!() : null,
       disabledColor: color_grey,
       disabledTextColor: Colors.white,
       textColor: textColor,
-      color: isEnable ? color: color_grey,
+      color: isEnable! ? color: color_grey,
       splashColor: Colors.white.withOpacity(0.5),
       highlightColor: Colors.white.withOpacity(0.5),
       hoverColor: Colors.white.withOpacity(0.5),
@@ -44,12 +44,12 @@ class CustomButtonPrimary extends StatelessWidget {
       minWidth: 0,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       padding:EdgeInsets.symmetric(
-          vertical:  hasHeight ? 0 :12,
-        horizontal:  hasWidth ? 0 : 17,
+          vertical:  hasHeight! ? 0 :12,
+        horizontal:  hasWidth! ? 0 : 17,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
-        side: isBorder ? BorderSide(
+        borderRadius: BorderRadius.circular(borderRadius!),
+        side: isBorder! ? BorderSide(
           color: Colors.grey,
           width: 1,
         ) : BorderSide.none,
@@ -59,13 +59,13 @@ class CustomButtonPrimary extends StatelessWidget {
         children: [
           icon != null
               ? Padding(
-              padding: EdgeInsets.only(right: spaceIcon), child: icon)
+              padding: EdgeInsets.only(right: spaceIcon!), child: icon)
               : Container(),
-          !btnLoading
+          btnLoading!
               ? customText != null
-              ? customText
+              ? customText!
               : Text(
-            title,
+            title!,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: baseUrlFontsPoppinsSemiBold,

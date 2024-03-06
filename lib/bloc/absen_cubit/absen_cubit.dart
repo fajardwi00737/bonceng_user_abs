@@ -17,15 +17,18 @@ class AbsenCubit extends Cubit<AbsenState>{
         "generated_date": date,
         "generated_time": time,
         "type": type,
-        "location": location,
+        // "location": location,
       };
 
       http.Response response = await http.post(
-        'https://api.simerahputih.com/absen/user/presence',
+        // 'https://api.simerahputih.com/absen/user/presence',
+        // 'http://47.243.59.72:3024/absen/user/presence',
+        // 'http://192.168.18.190:3101/absen/user/presence',
+        Uri.parse('http://185.201.9.1:3101/absen/user/presence'),
         body: formMap,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "x-api-key" : GeneralSharedPreferences.readString("token_login")
+          "x-api-key" : GeneralSharedPreferences.readString("token_login")!
         },
         encoding: convert.Encoding.getByName("utf-8"),
       );

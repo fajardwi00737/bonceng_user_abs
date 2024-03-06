@@ -11,8 +11,8 @@ class TweenSequenceDemo extends StatefulWidget {
 class _TweenSequenceDemoState extends State<TweenSequenceDemo>
     with SingleTickerProviderStateMixin {
   static const Duration duration = Duration(seconds: 3);
-    AnimationController controller;
-    Animation<Color> animation;
+    AnimationController? controller;
+    Animation<Color>? animation;
 
   static final colors = [
     Colors.red,
@@ -37,19 +37,19 @@ class _TweenSequenceDemoState extends State<TweenSequenceDemo>
 
       sequenceItems.add(
         TweenSequenceItem<Color>(
-          tween: ColorTween(begin: beginColor, end: endColor),
+          tween: Tween(begin: beginColor, end: endColor).chain(CurveTween(curve: Curves.easeIn)),
           weight: weight,
         ),
       );
     }
 
     controller = AnimationController(duration: duration, vsync: this);
-    animation = TweenSequence<Color>(sequenceItems).animate(controller);
+    animation = TweenSequence<Color>(sequenceItems).animate(controller!);
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -61,13 +61,13 @@ class _TweenSequenceDemoState extends State<TweenSequenceDemo>
       ),
       body: Center(
         child: AnimatedBuilder(
-          animation: animation,
+          animation: animation!,
           builder: (context, child) {
             return MaterialButton(
-              color: animation.value,
+              color: animation!.value,
               onPressed: () async {
-                await controller.forward();
-                controller.reset();
+                await controller!.forward();
+                controller!.reset();
               },
               child: child,
             );

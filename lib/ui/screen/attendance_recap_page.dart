@@ -30,7 +30,7 @@ class _AttendanceRecapPageState extends State<AttendanceRecapPage> {
 
   ScrollController scrollController = ScrollController();
   List<DateRecapModel> listOptionHistoryTransaksi = [];
-  DateRecapModel optionHistoryTransaksi;
+  DateRecapModel? optionHistoryTransaksi;
   String monthName = "";
 
   bool isAbsen = true, isCuti = false;
@@ -271,7 +271,7 @@ class _AttendanceRecapPageState extends State<AttendanceRecapPage> {
                                   );
                                 } else if (state is CutiListError){
                                   print("error cuy");
-                                  print("error cuy => "+state.msg);
+                                  print("error cuy => "+state.msg!);
 
                                   return Container();
                                 } else if(state is CutiListSucces){
@@ -337,7 +337,7 @@ class _AttendanceRecapPageState extends State<AttendanceRecapPage> {
                                   );
                                 } else if (state is PresenceListError){
                                   print("error cuy");
-                                  print("error cuy => "+state.msg);
+                                  print("error cuy => "+state.msg!);
 
                                   return Container();
                                 } else if(state is PresenceListSucces){
@@ -433,7 +433,7 @@ class _AttendanceRecapPageState extends State<AttendanceRecapPage> {
                                 var id = listOptionHistoryTransaksi[i].id;
                                 print(id);
                                 print(listOptionHistoryTransaksi[i].name);
-                                print(optionHistoryTransaksi.name);
+                                print(optionHistoryTransaksi!.name);
 
                                 Future.delayed(Duration(milliseconds: 300),(){
                                   Navigator.of(context).pop(true);
@@ -443,7 +443,7 @@ class _AttendanceRecapPageState extends State<AttendanceRecapPage> {
                                 margin: EdgeInsets.only(bottom: 16),
                                 padding: EdgeInsets.only(left: 16, right: 16),
                                 height: 52,
-                                color: optionHistoryTransaksi.id == listOptionHistoryTransaksi[i].id ? Color(0xFFEDEDED) : Colors.white,
+                                color: optionHistoryTransaksi!.id == listOptionHistoryTransaksi[i].id ? Color(0xFFEDEDED) : Colors.white,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -465,7 +465,7 @@ class _AttendanceRecapPageState extends State<AttendanceRecapPage> {
                                             shape: BoxShape.circle,
                                             color: color_grey
                                         ),
-                                        child: optionHistoryTransaksi.id == listOptionHistoryTransaksi[i].id ? Container(
+                                        child: optionHistoryTransaksi!.id == listOptionHistoryTransaksi[i].id ? Container(
                                             height: 10,
                                             width: 10,
                                             decoration: BoxDecoration(

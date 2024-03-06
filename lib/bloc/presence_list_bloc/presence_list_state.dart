@@ -28,7 +28,7 @@ class PresenceListFailed extends PresenceListState {
 }
 
 class PresenceListError extends PresenceListState {
-  final String msg;
+  final String? msg;
 
   PresenceListError({this.msg});
 }

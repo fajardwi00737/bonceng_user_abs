@@ -5,11 +5,12 @@ import 'package:absen_online/constant/color_constant.dart';
 import 'package:absen_online/ui/screen/absensi_page.dart';
 import 'package:absen_online/ui/screen/animation.dart';
 import 'package:absen_online/ui/screen/attendance_recap_page.dart';
+import 'package:absen_online/ui/screen/notification_page.dart';
 import 'package:absen_online/ui/screen/pengajuan_cuti_page.dart';
 import 'package:absen_online/ui/widget/card/custom_main_card.dart';
 import 'package:absen_online/ui/widget/card/dashboard_card.dart';
 import 'package:absen_online/utils/general_shared_preferences/general_shared_preferences.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final List<CardContent> cardContent = [
     CardContent(1,Icons.fingerprint, "Absen"),
-    CardContent(2,Icons.receipt, "Rekap Absen"),
+    CardContent(2,Icons.receipt, "Riwayat"),
     CardContent(3,Icons.assignment_ind, "Cuti/Izin"),
     // CardContent(Icons.article_outlined, "Daftar"),
   ];
@@ -37,40 +38,47 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
 
-    firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        var ketNotif;
-        var msgBody;
-        final data = message['data'];
-        ketNotif = data['ket_notif'].toString();
-        msgBody = data['message'].toString();
-
-        print("onMessage home: $message");
-        showNotification(ketNotif,msgBody);
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch home: $message");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume home: $message");
-      },
-    );
+    // firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     var ketNotif;
+    //     var msgBody;
+    //     final data = message['data'];
+    //     ketNotif = data['ket_notif'].toString();
+    //     msgBody = data['message'].toString();
+    //
+    //     print("onMessage home: $message");
+    //     getDashboardSummary();
+    //     showNotification(ketNotif,msgBody);
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     print("onLaunch home: $message");
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     print("onResume home: $message");
+    //   },
+    // );
     getLocations();
+    getDashboardSummary();
+    // context.read<DashboardSumaryCubit>().getDashboardSumary();
+  }
+
+  getDashboardSummary(){
+    print("geting data dashboard");
     context.read<DashboardSumaryCubit>().getDashboardSumary();
+    print("get data dashboard");
+
   }
 
-
-
-  showNotification(String nama, String message, {String payload}) async {
-
-
-    var android = new AndroidNotificationDetails(
-        'channel_id', 'channel_approval', 'CHANNEL_APPROVAL_NOTIF',
-        priority: Priority.High, importance: Importance.Max);
-    var iOS = new IOSNotificationDetails();
-    var platform = new NotificationDetails(android, iOS);
-    await flutterLocalNotificationsPlugin.show(0, nama, message, platform);
-  }
+  // showNotification(String nama, String message, {String? payload}) async {
+  //
+  //
+  //   var android = new AndroidNotificationDetails(
+  //       'channel_id', 'channel_approval', 'CHANNEL_APPROVAL_NOTIF',
+  //       priority: Priority.High, importance: Importance.Max);
+  //   var iOS = new IOSNotificationDetails();
+  //   var platform = new NotificationDetails(android: android,iOS: iOS);
+  //   await flutterLocalNotificationsPlugin.show(0, nama, message, platform);
+  // }
 
   Future onSelectNotification(String payload) async {
     print("tes selection notif");
@@ -100,7 +108,7 @@ class _HomePageState extends State<HomePage> {
   // }
 
   getLocations() async{
-    Position res = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    Position res = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
     print("lat => "+res.latitude.toString());
   }
   @override
@@ -112,126 +120,153 @@ class _HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
+              // Container(
+              //
+              //   // margin: EdgeInsets.only(top: 52.0,right: 10),
+              //   // color: Colors.yellow,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     children: [
+              //       IconButton(icon: Icon(Icons.notifications,color: color_black), onPressed: (){
+              //         print("tes notif");
+              //       })
+              //     ],
+              //   ),
+              // ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
+                width: MediaQuery.of(context).size.width,
+                // color: Colors.yellow,
+                margin: EdgeInsets.only(top: 52.0),
+                padding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                 child: InkWell(
                   onTap: (){
                     print(" oke");
                   },
-                  child: Container(
-                      margin: EdgeInsets.only(top: 52.0),
-                      decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 5,
-                              offset: Offset(0, 0),)
-                          ],
-                          color: color_primary,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(36))),
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: 10.0,
-                            right: 10.0,
-                            top: 10.0,
-                            bottom: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Flexible(
                         child: Container(
-                          width: MediaQuery.of(context)
-                              .size
-                              .width,
-                          child: Row(
-                            children: <Widget>[
-                              Flexible(
-                                flex: 9,
-                                child: Container(
-                                  child: Row(
-                                    children: <Widget>[
-                                      Flexible(
-                                        flex: 2,
-                                        child: Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(
-                                                  500),
-                                              color: Colors.white),
-                                          child: Center(
-                                            child: Text(
-                                              "F",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                  18,
-                                                  color: color_primary,
-                                                  fontFamily:baseUrlFontsPoppinsSemiBold),
+
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 3,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 0),)
+                                ],
+                                color: color_primary,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(36))),
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 10.0,
+                                  top: 10.0,
+                                  bottom: 10.0),
+                              child: Container(
+                                width: MediaQuery.of(context)
+                                    .size
+                                    .width,
+                                child: Row(
+                                  children: <Widget>[
+                                    Flexible(
+                                      flex: 9,
+                                      child: Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Flexible(
+                                              flex: 2,
+                                              child: Container(
+                                                height: 40,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        500),
+                                                    color: Colors.white),
+                                                child: Center(
+                                                  child: Text(
+                                                    GeneralSharedPreferences.readString("user_name")![0].toUpperCase(),
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                        color: color_primary,
+                                                        fontFamily:baseUrlFontsPoppinsSemiBold),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        flex: 9,
-                                        child: Container(
-                                          margin:
-                                          EdgeInsets.only(
-                                              left: 16),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment
-                                                .start,
-                                            children: <
-                                                Widget>[
-                                              Container(
-                                                child: Text(
-                                                  "Hallo,",
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                      13,
-                                                      fontFamily:baseUrlFontsPoppinsRegular,
-                                                      color: Colors.white),
+                                            Flexible(
+                                              flex: 9,
+                                              child: Container(
+                                                margin:
+                                                EdgeInsets.only(
+                                                    left: 16),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: <
+                                                      Widget>[
+                                                    Container(
+                                                      child: Text(
+                                                        "Hallo,",
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                            13,
+                                                            fontFamily:baseUrlFontsPoppinsRegular,
+                                                            color: Colors.white),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        GeneralSharedPreferences.readString("user_name")!.toUpperCase() ?? "-",
+                                                        overflow:
+                                                        TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                            17,
+                                                            fontFamily:baseUrlFontsPoppinsSemiBold,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            color: Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              Container(
-                                                child: Text(
-                                                  GeneralSharedPreferences.readString("user_name") ?? "-",
-                                                  overflow:
-                                                  TextOverflow
-                                                      .ellipsis,
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                      17,
-                                                      fontFamily:baseUrlFontsPoppinsSemiBold,
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .bold,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                            right: 8),
+                                        child: Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              Flexible(
-                                flex: 1,
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      right: 8),
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )),
+                            )),
+                      ),
+                      IconButton(icon: Icon(Icons.notifications,color: color_black), onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>InboxPage()));
+                      })
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 24,),
@@ -282,6 +317,7 @@ class _HomePageState extends State<HomePage> {
                       return Container(
                         margin: EdgeInsets.only(bottom: 16,right: index % 2 == 0 ?8:16,left: index % 2 != 0 ?8:16),
                         child: CustomMainCard(
+                          index: index,
                           iconData : cardContent[index].iconData,
                           label : cardContent[index].label,
                           onTap:(){

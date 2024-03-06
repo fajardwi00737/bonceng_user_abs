@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class CustomDatePickerForm extends StatelessWidget {
   CustomDatePickerForm({this.onTap,this.controller});
-  final Function onTap;
-  final TextEditingController controller;
+  final Function? onTap;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -32,7 +32,7 @@ class CustomDatePickerForm extends StatelessWidget {
         ),
       ),
       readOnly: true,
-      onTap: onTap
+      onTap: onTap!()
     );
   }
 }

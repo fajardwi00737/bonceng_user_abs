@@ -25,12 +25,12 @@ class AbsenLoading extends AbsenState {
 }
 
 class AbsenFailed extends AbsenState {
-  final String msg;
+  final String? msg;
   AbsenFailed(this.msg);
 }
 
 class AbsenError extends AbsenState {
-  final String msg;
+  final String? msg;
 
   AbsenError({this.msg});
 }
